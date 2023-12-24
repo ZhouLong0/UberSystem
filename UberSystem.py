@@ -65,6 +65,15 @@ class UberSystem:
         # TO BE IMPLEMENTED
         ...
 
+    def report_round_count(self):
+        return self.__round
+    
+    def report_num_customers(self):
+        return self.__customers
+
+    def report_num_taxis(self):
+        return self.__taxis
+
     def print_state(self):
         print(
             f"-----------------------------Round {self.__round} State of Uber System -----------------------------"
