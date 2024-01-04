@@ -12,8 +12,8 @@ class Simulation:
     def __init__(self, grid, customers, taxis):
         self.env = Environment(grid)
         self.uber_system = UberSystem(taxis, customers, self.env)
-        self.num_taxis = self.uber_system.report_num_taxis()
-        self.num_customers = self.uber_system.report_num_customers()
+        #self.num_taxis = self.uber_system.report_num_taxis()
+        #self.num_customers = self.uber_system.report_num_customers()
         
     def generate_environment_data(num_taxis, num_customers, grid_size):
 
@@ -114,7 +114,7 @@ class Simulation:
             logs.append(message_list)
     
             sys.stdout = original_stdout
-            print(f"Number of Messages for Round {self.uber_system.report_round_count()}: {len(message_list)}")
+            #print(f"Number of Messages for Round {self.uber_system.report_round_count()}: {len(message_list)}")
             
         empty_logs_count = sum(1 for log in logs if not log)
 

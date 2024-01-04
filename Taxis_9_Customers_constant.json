@@ -5,14 +5,14 @@
                 "Customer": 1,
                 "start_pos": [
                     [
-                        4,
-                        9
+                        2,
+                        8
                     ]
                 ],
                 "dest_pos": [
                     [
-                        1,
-                        6
+                        3,
+                        9
                     ]
                 ],
                 "seat_n": 1
@@ -21,14 +21,14 @@
                 "Customer": 2,
                 "start_pos": [
                     [
-                        0,
-                        7
+                        7,
+                        6
                     ]
                 ],
                 "dest_pos": [
                     [
-                        5,
-                        2
+                        3,
+                        4
                     ]
                 ],
                 "seat_n": 1
@@ -37,13 +37,13 @@
                 "Customer": 3,
                 "start_pos": [
                     [
-                        0,
-                        2
+                        9,
+                        0
                     ]
                 ],
                 "dest_pos": [
                     [
-                        2,
+                        5,
                         3
                     ]
                 ],
@@ -55,14 +55,34 @@
                 "Taxi": 1,
                 "start_pos": [
                     [
-                        9,
-                        4
+                        7,
+                        8
                     ]
                 ],
                 "n_seats": 4
             },
             {
                 "Taxi": 2,
+                "start_pos": [
+                    [
+                        0,
+                        4
+                    ]
+                ],
+                "n_seats": 4
+            },
+            {
+                "Taxi": 3,
+                "start_pos": [
+                    [
+                        6,
+                        1
+                    ]
+                ],
+                "n_seats": 4
+            },
+            {
+                "Taxi": 4,
                 "start_pos": [
                     [
                         4,
@@ -72,47 +92,17 @@
                 "n_seats": 4
             },
             {
-                "Taxi": 3,
+                "Taxi": 5,
                 "start_pos": [
                     [
-                        2,
-                        7
-                    ]
-                ],
-                "n_seats": 4
-            },
-            {
-                "Taxi": 4,
-                "start_pos": [
-                    [
-                        6,
+                        4,
                         8
                     ]
                 ],
                 "n_seats": 4
             },
             {
-                "Taxi": 5,
-                "start_pos": [
-                    [
-                        0,
-                        0
-                    ]
-                ],
-                "n_seats": 4
-            },
-            {
                 "Taxi": 6,
-                "start_pos": [
-                    [
-                        5,
-                        9
-                    ]
-                ],
-                "n_seats": 4
-            },
-            {
-                "Taxi": 7,
                 "start_pos": [
                     [
                         2,
@@ -122,11 +112,21 @@
                 "n_seats": 4
             },
             {
+                "Taxi": 7,
+                "start_pos": [
+                    [
+                        0,
+                        8
+                    ]
+                ],
+                "n_seats": 4
+            },
+            {
                 "Taxi": 8,
                 "start_pos": [
                     [
-                        5,
-                        4
+                        2,
+                        2
                     ]
                 ],
                 "n_seats": 4
@@ -135,8 +135,8 @@
                 "Taxi": 9,
                 "start_pos": [
                     [
-                        2,
-                        1
+                        5,
+                        6
                     ]
                 ],
                 "n_seats": 4
