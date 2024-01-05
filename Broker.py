@@ -24,7 +24,7 @@ class Broker:
             Ride object if a taxi accepted the request
             None otherwise
         """
-        print(f"Broker received message {message} from {customer}")
+        print(f"Recommender received message {message} from {customer}")
         self.__message_received += 1
         if message == "request for ride":
             ride = self.__request_for_ride(customer)

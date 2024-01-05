@@ -1,9 +1,11 @@
+from Ride import Ride
 class Taxi:
-    def __init__(self, id, pos, seats):
+    def __init__(self, id, pos, seats, env):
         self.__id = id
         self.__pos = pos
         self.__seats = seats
         self.__idle = True
+        self.__env = env
 
     def receive_request(self, message: str):
         """
@@ -18,6 +20,10 @@ class Taxi:
             return True
         return False
 
+    def create_ride(self,customer):
+        new_ride = Ride(customer,self,self.__env)
+        return new_ride
+    
     def get_pos(self):
         return self.__pos
 
