@@ -3,17 +3,21 @@ import random
 import numpy as np
 import sys
 import io
+import os
+import matplotlib.pyplot as plt
+
 from Taxi import Taxi
 from Customer import Customer
 from Environment import Environment
 from UberSystem import UberSystem
 
 class Simulation:
-    def __init__(self, grid, customers, taxis):
-        self.env = Environment(grid)
+    def __init__(self, env, customers, taxis):
+        self.env = env
+        self.customers = len(customers)
+        self.taxis = len(taxis)
         self.uber_system = UberSystem(taxis, customers, self.env)
-        #self.num_taxis = self.uber_system.report_num_taxis()
-        #self.num_customers = self.uber_system.report_num_customers()
+        self.message_count_per_round = []
         
     def generate_environment_data(num_taxis, num_customers, grid_size):
 
@@ -49,12 +53,12 @@ class Simulation:
             if num_samples >= num_customers:
                 for i in range(1, num_customers+1):
                     data = Simulation.generate_environment_data(num_taxis, i, grid_size)
-                    with open(f"Customers_{i}_{constant}_constant.json", "w") as f:
+                    with open(os.path.join("test_cases", f"Customers_{i}_{constant}_constant.json"), "w") as f:
                         json.dump([data], f, indent=4)
             else:
                 for i in range(1, num_samples+1):
                     data = Simulation.generate_environment_data(num_taxis, i, grid_size)
-                    with open(f"Customers_{i}_{constant}_constant.json", "w") as f:
+                    with open(os.path.join("test_cases", f"Customers_{i}_{constant}_constant.json"), "w") as f:
                         json.dump([data], f, indent=4)
             
         #Increment number of Taxis
@@ -62,19 +66,19 @@ class Simulation:
             if num_samples >= num_taxis:
                 for i in range(1, num_taxis+1):
                     data = Simulation.generate_environment_data(i, num_customers, grid_size)
-                    with open(f"Taxis_{i}_{constant}_constant.json", "w") as f:
+                    with open(os.path.join("test_cases",f"Taxis_{i}_{constant}_constant.json"), "w") as f:
                         json.dump([data], f, indent=4)
             else:
                 for i in range(1, num_samples+1):
                     data = Simulation.generate_environment_data(i, num_customers, grid_size)
-                    with open(f"Taxis_{i}_{constant}_constant.json", "w") as f:
+                    with open(os.path.join("test_cases",f"Taxis_{i}_{constant}_constant.json"), "w") as f:
                         json.dump([data], f, indent=4)
 
 
         if constant == 'None':
             for i in range(1, num_samples+1):
                 data = Simulation.generate_environment_data(num_taxis, num_customers, grid_size)
-                with open(f"test_{i}_{constant}_constant.json", "w") as f:
+                with open(os.path.join("test_cases", f"test_{i}_{constant}_constant.json"), "w") as f:
                     json.dump([data], f, indent=4)
 
     @staticmethod
@@ -90,45 +94,97 @@ class Simulation:
         for simulation in simulations:
             CustomerList = simulation["Customers"]
             TaxiList = simulation["Taxis"]
+            grid = np.array(simulation["Environment"])
+            env = Environment(grid)
+            
             for customer in CustomerList:
                 customers.append(Customer(customer["Customer"], tuple(customer["start_pos"][0]), tuple(customer["dest_pos"][0]), customer["seat_n"]))
             for taxi in TaxiList:
-                taxis.append(Taxi(taxi["Taxi"], tuple(taxi["start_pos"][0]), taxi["n_seats"]))
-            grid = np.array(simulation["Environment"])
-        return Simulation(grid, customers, taxis)
-    
-    def simulate(self):
-        number_of_messages = []
-        logs = []
-        while(self.uber_system.get_customers()):
+                taxis.append(Taxi(taxi["Taxi"], tuple(taxi["start_pos"][0]), taxi["n_seats"], env))
             
-            original_stdout = sys.stdout
-            sys.stdout = io.StringIO()
-  
-            #self.uber_system.print_state()
-            self.uber_system.simulate_one_turn_brokering(self.env)
-            sys.stdout.seek(0)
-            message_list = sys.stdout.read().splitlines()
-            number_of_messages.append(len(message_list))
-
-            logs.append(message_list)
+        return Simulation(env, customers, taxis)
     
-            sys.stdout = original_stdout
-            #print(f"Number of Messages for Round {self.uber_system.report_round_count()}: {len(message_list)}")
-            
-        empty_logs_count = sum(1 for log in logs if not log)
+    def simulate(self, case):
+        self.message_count_per_round = []
+        if(case == 'Broker'):
+            number_of_messages = []
+            logs = []
+            while(self.uber_system.get_customers()):
+                
+                original_stdout = sys.stdout
+                sys.stdout = io.StringIO()
+    
+                #self.env.print_state()
+                self.uber_system.simulate_one_turn_brokering(self.env)
+                sys.stdout.seek(0)
+                message_list = sys.stdout.read().splitlines()
+                number_of_messages.append(len(message_list))
 
-        with open(f"Logs.json", "w") as json_file:
-            json.dump({"logs": logs}, json_file, indent=4)
+                logs.append(message_list)
+                self.message_count_per_round.append(len(message_list))
+
+                sys.stdout = original_stdout
+                print(f"Number of Messages for Round {self.uber_system.report_round_count()}: {len(message_list)}")
+                
+            empty_logs_count = sum(1 for log in logs if not log)
+
+            with open(os.path.join("logs", f"Logs_Broker.json"), "w") as json_file:
+                json.dump({"logs": logs}, json_file, indent=4)
+                
+        if (case == 'Recommender'):
+            number_of_messages = []
+            logs = []
+            while(self.uber_system.get_customers()):
+                
+                original_stdout = sys.stdout
+                sys.stdout = io.StringIO()
+                
+                self.uber_system.simulate_one_turn_recommending(self.env)
+                sys.stdout.seek(0)
+                message_list = sys.stdout.read().splitlines()
+                number_of_messages.append(len(message_list))
+
+                logs.append(message_list)
+                self.message_count_per_round.append(len(message_list))
+        
+                sys.stdout = original_stdout
+                print(f"Number of Messages for Round {self.uber_system.report_round_count()}: {len(message_list)}")
+            
+            empty_logs_count = sum(1 for log in logs if not log)
+
+            with open(os.path.join("logs", f"Logs_Recommender.json"), "w") as json_file:
+                json.dump({"logs": logs}, json_file, indent=4)
+
+    def get_message_count_per_round(self):
+        return self.message_count_per_round  
+
+
 
 # Save the data to a JSON file
-num_taxis = 25
-num_customers = 3
-num_samples = 20
+num_taxis = 5
+num_customers = 10
+num_samples = 8
 Simulation.generate_test_cases(num_samples, num_customers, num_taxis, constant='Customers', grid_size=10)
 
+#Simulation
+sim_rec = Simulation.read_from_file('test_cases/Taxis_5_Customers_constant.json')
+sim_rec.simulate('Recommender')
 
-sim = Simulation.read_from_file('Taxis_1_Customers_constant.json')
-sim.simulate()
+sim_broker = Simulation.read_from_file('test_cases/Taxis_5_Customers_constant.json')
+sim_broker.simulate('Broker')
+
+#Plot comparison
+fig, ax = plt.subplots()
+ax.plot(sim_rec.get_message_count_per_round(), label='Recommender')
+ax.plot(sim_broker.get_message_count_per_round(), label='Broker')
+ax.text(1, 13, f'Customers: {sim_rec.customers} Taxis: {sim_rec.taxis}', style='italic', bbox={
+        'facecolor': 'green', 'alpha': 0.5, 'pad': 10})
+
+ax.set_xlabel('Rounds')
+ax.set_ylabel('Message Count')
+ax.set_title(f'Communication between Initiators and Participant')
+ax.legend()
+
+plt.show()
 
 #todo: make the grid with obstacles

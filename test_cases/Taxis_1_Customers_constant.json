@@ -5,14 +5,14 @@
                 "Customer": 1,
                 "start_pos": [
                     [
-                        9,
-                        8
+                        6,
+                        1
                     ]
                 ],
                 "dest_pos": [
                     [
-                        4,
-                        4
+                        7,
+                        0
                     ]
                 ],
                 "seat_n": 1
@@ -21,14 +21,14 @@
                 "Customer": 2,
                 "start_pos": [
                     [
-                        2,
-                        5
+                        0,
+                        0
                     ]
                 ],
                 "dest_pos": [
                     [
-                        5,
-                        5
+                        1,
+                        8
                     ]
                 ],
                 "seat_n": 1
@@ -37,13 +37,125 @@
                 "Customer": 3,
                 "start_pos": [
                     [
-                        0,
-                        2
+                        7,
+                        8
                     ]
                 ],
                 "dest_pos": [
                     [
                         4,
+                        3
+                    ]
+                ],
+                "seat_n": 1
+            },
+            {
+                "Customer": 4,
+                "start_pos": [
+                    [
+                        3,
+                        4
+                    ]
+                ],
+                "dest_pos": [
+                    [
+                        0,
+                        5
+                    ]
+                ],
+                "seat_n": 1
+            },
+            {
+                "Customer": 5,
+                "start_pos": [
+                    [
+                        2,
+                        7
+                    ]
+                ],
+                "dest_pos": [
+                    [
+                        0,
+                        7
+                    ]
+                ],
+                "seat_n": 1
+            },
+            {
+                "Customer": 6,
+                "start_pos": [
+                    [
+                        0,
+                        1
+                    ]
+                ],
+                "dest_pos": [
+                    [
+                        7,
+                        2
+                    ]
+                ],
+                "seat_n": 1
+            },
+            {
+                "Customer": 7,
+                "start_pos": [
+                    [
+                        6,
+                        0
+                    ]
+                ],
+                "dest_pos": [
+                    [
+                        5,
+                        6
+                    ]
+                ],
+                "seat_n": 1
+            },
+            {
+                "Customer": 8,
+                "start_pos": [
+                    [
+                        7,
+                        1
+                    ]
+                ],
+                "dest_pos": [
+                    [
+                        1,
+                        2
+                    ]
+                ],
+                "seat_n": 1
+            },
+            {
+                "Customer": 9,
+                "start_pos": [
+                    [
+                        7,
+                        3
+                    ]
+                ],
+                "dest_pos": [
+                    [
+                        5,
+                        2
+                    ]
+                ],
+                "seat_n": 1
+            },
+            {
+                "Customer": 10,
+                "start_pos": [
+                    [
+                        6,
+                        6
+                    ]
+                ],
+                "dest_pos": [
+                    [
+                        6,
                         5
                     ]
                 ],
@@ -55,28 +167,8 @@
                 "Taxi": 1,
                 "start_pos": [
                     [
-                        9,
-                        3
-                    ]
-                ],
-                "n_seats": 4
-            },
-            {
-                "Taxi": 2,
-                "start_pos": [
-                    [
                         4,
-                        0
-                    ]
-                ],
-                "n_seats": 4
-            },
-            {
-                "Taxi": 3,
-                "start_pos": [
-                    [
-                        4,
-                        2
+                        1
                     ]
                 ],
                 "n_seats": 4
