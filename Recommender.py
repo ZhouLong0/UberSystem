@@ -24,8 +24,8 @@ class Recommender:
         self.__message_received += 1
         if message == "request":
             return self.recommend_taxis(customer)
-    
-    def recommend_taxis(self,customer: Customer):
+
+    def recommend_taxis(self, customer: Customer):
         """
         The recommender sends the list of available taxis to the customer
         parameters:
@@ -33,6 +33,7 @@ class Recommender:
             message: string
         returns:
         """
+        self.__message_sent += 1
         enough_seats_taxis = [
             taxi
             for taxi in self.__taxis
