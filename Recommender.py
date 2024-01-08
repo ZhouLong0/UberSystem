@@ -45,3 +45,6 @@ class Recommender:
             customer.ride_rejected()
             return None
         return enough_seats_taxis
+
+    def get_message_sent(self):
+        return self.__message_sent

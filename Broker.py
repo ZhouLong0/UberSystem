@@ -81,3 +81,6 @@ class Broker:
         customer.ride_rejected()
         self.__message_sent += 1
         return None
+
+    def get_message_sent(self):
+        return self.__message_sent

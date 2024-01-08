@@ -23,7 +23,6 @@ class UberSystem:
         # recommender for 2nd use case
         self.__recommender = Recommender(self.__taxis, self.__env)
 
-
     def get_customers(self):
         return self.__customers
 
@@ -94,7 +93,7 @@ class UberSystem:
 
     def report_round_count(self):
         return self.__round
-    
+
     def report_num_customers(self):
         return self.__customers
 
@@ -115,3 +114,9 @@ class UberSystem:
         for ride in self.__rides:
             print(ride)
         print("\n")
+
+    def get_broker(self):
+        return self.__broker
+
+    def get_recommender(self):
+        return self.__recommender
