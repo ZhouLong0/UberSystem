@@ -7,7 +7,7 @@ if __name__ == "__main__":
     num_customers = 100
 
     # GENERATION OF TEST CASE
-    Simulation.generate_test_cases(num_customers, num_taxis, grid_size=100)
+    # Simulation.generate_test_cases(num_customers, num_taxis, grid_size=100)
     path = (
         "experiment/Customers_"
         + str(num_customers)
@@ -37,7 +37,7 @@ if __name__ == "__main__":
 
     ax.set_xlabel("Rounds")
     ax.set_ylabel("Message Count")
-    ax.set_title(f"Communication between Initiators and Participant")
+    ax.set_title(f"Communication between hold by the mediator")
     ax.legend()
 
     plt.show()
