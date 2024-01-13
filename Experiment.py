@@ -5,19 +5,22 @@ if __name__ == "__main__":
     # Save the data to a JSON file
     num_taxis = 50
     num_customers = 100
-    num_samples = 50
 
     # GENERATION OF TEST CASE
-    # Simulation.generate_test_cases(
-    #    num_samples, num_customers, num_taxis, constant="None", grid_size=50
-    # )
-
+    Simulation.generate_test_cases(num_customers, num_taxis, grid_size=100)
+    path = (
+        "experiment/Customers_"
+        + str(num_customers)
+        + "_Taxis_"
+        + str(num_taxis)
+        + ".json"
+    )
     # Simulation
-    sim_rec = Simulation.read_from_file("experiment/test_50_None_constant.json")
+    sim_rec = Simulation.read_from_file(path)
     print(sim_rec.customers)
     sim_rec.simulate("Recommender")
 
-    sim_broker = Simulation.read_from_file("experiment/test_50_None_constant.json")
+    sim_broker = Simulation.read_from_file(path)
     sim_broker.simulate("Broker")
 
     # Plot comparison
