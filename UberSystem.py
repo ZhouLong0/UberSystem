@@ -17,11 +17,14 @@ class UberSystem:
         self.__taxis = taxis
         self.__customers = customers
         self.__rides = []
+        self.total_rides = 0
+        self.total_duration = 0
         self.__env = env
         self.__round = 0
         self.__broker = Broker(self.__taxis, self.__env)
         # recommender for 2nd use case
         self.__recommender = Recommender(self.__taxis, self.__env)
+
 
     def get_customers(self):
         return self.__customers
@@ -39,14 +42,19 @@ class UberSystem:
         # move existing rides
         for ride in self.__rides:
             if ride.is_finished():
+                self.total_rides +=1
+                self.total_duration += ride.duration
                 self.__rides.remove(ride)
                 self.__customers.remove(ride.get_customer())
 
-            ride.move()
+            else:
+                ride.move()
 
-            if ride.is_finished():
-                self.__rides.remove(ride)
-                self.__customers.remove(ride.get_customer())
+                if ride.is_finished():
+                    self.total_rides +=1
+                    self.total_duration += ride.duration
+                    self.__rides.remove(ride)
+                    self.__customers.remove(ride.get_customer())
 
         # find idle customers, let them request for ride
         idle_customers = [
@@ -70,14 +78,19 @@ class UberSystem:
         # move existing rides
         for ride in self.__rides:
             if ride.is_finished():
+                self.total_rides +=1
+                self.total_duration += ride.duration
                 self.__rides.remove(ride)
                 self.__customers.remove(ride.get_customer())
 
-            ride.move()
+            else:
+                ride.move()
 
-            if ride.is_finished():
-                self.__rides.remove(ride)
-                self.__customers.remove(ride.get_customer())
+                if ride.is_finished():
+                    self.total_rides +=1
+                    self.total_duration += ride.duration                
+                    self.__rides.remove(ride)
+                    self.__customers.remove(ride.get_customer())
 
         # find idle customers, let them request for ride
         idle_customers = [
@@ -93,7 +106,7 @@ class UberSystem:
 
     def report_round_count(self):
         return self.__round
-
+    
     def report_num_customers(self):
         return self.__customers
 

@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 
 if __name__ == "__main__":
     # Save the data to a JSON file
-    num_taxis = 50
-    num_customers = 100
+    num_taxis = 10
+    num_customers = 50
 
     # GENERATION OF TEST CASE
     # Simulation.generate_test_cases(num_customers, num_taxis, grid_size=100)
@@ -41,3 +41,5 @@ if __name__ == "__main__":
     ax.legend()
 
     plt.show()
+    print("Average ride time for recommender:", sim_rec.uber_system.total_duration/sim_rec.uber_system.total_rides)
+    print("Average ride time for broker:", sim_broker.uber_system.total_duration/sim_broker.uber_system.total_rides)

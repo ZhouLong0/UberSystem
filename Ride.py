@@ -17,6 +17,7 @@ class Ride:
 
         self.__env = env
         self.__is_finished = False
+        self.duration = 0
 
         # path from start to pickup_pos to destination
         self.path = env.astar(self.__start, self.__pickup_pos)[::-1]
@@ -43,6 +44,7 @@ class Ride:
 
         self.__current_pos = self.path.pop(0)
         self.__taxi.set_pos(self.__current_pos)
+        self.duration += 1
 
     def is_finished(self):
         return self.__is_finished

@@ -18,7 +18,7 @@ class Simulation:
         self.customers = len(customers)
         self.taxis = len(taxis)
         self.uber_system = UberSystem(taxis, customers, self.env)
-        # self.message_count_per_round = []
+        #self.message_count_per_round = []
 
     def generate_environment_data(num_taxis, num_customers, grid_size):
         # Generate the environment matrix with 0 values
@@ -59,15 +59,18 @@ class Simulation:
 
         return data
 
-    def generate_test_cases(num_customers, num_taxis, grid_size=10):
-        data = Simulation.generate_environment_data(num_taxis, num_customers, grid_size)
-        with open(
-            os.path.join(
-                "experiment", f"Customers_{num_customers}_Taxis_{num_taxis}.json"
-            ),
-            "w",
-        ) as f:
-            json.dump([data], f, indent=4)
+    def generate_test_cases(
+            num_customers, num_taxis, grid_size=10
+    ):
+         data = Simulation.generate_environment_data(num_taxis, num_customers, grid_size)
+         with open(
+              os.path.join(
+                   "experiment", f"Customers_{num_customers}_Taxis_{num_taxis}.json"
+                   ),
+                   "w",) as f:
+              json.dump([data], f, indent=4)
+    
+
 
     @staticmethod
     def read_from_file(filepath):
@@ -127,11 +130,8 @@ class Simulation:
                     f"Number of Messages for Round {self.uber_system.report_round_count()}: {self.uber_system.get_broker().get_message_sent()}"
                 )
 
-            empty_logs_count = sum(1 for log in logs if not log)
 
-            with open(
-                os.path.join("new_logs", f"city_Logs_Broker.json"), "w"
-            ) as json_file:
+            with open(os.path.join("logs", f"Logs_Broker.json"), "w") as json_file:
                 json.dump({"logs": logs}, json_file, indent=4)
 
         if case == "Recommender":
@@ -155,11 +155,7 @@ class Simulation:
                     f"Number of Messages for Round {self.uber_system.report_round_count()}: {self.uber_system.get_recommender().get_message_sent()}"
                 )
 
-            empty_logs_count = sum(1 for log in logs if not log)
-
-            with open(
-                os.path.join("new_logs", f"city_Logs_Recommender.json"), "w"
-            ) as json_file:
+            with open(os.path.join("logs", f"Logs_Recommender.json"), "w") as json_file:
                 json.dump({"logs": logs}, json_file, indent=4)
 
     def get_message_count_per_round(self):
@@ -170,7 +166,9 @@ if __name__ == "__main__":
     # Save the data to a JSON file
     num_taxis = 5
     num_customers = 50
-    Simulation.generate_test_cases(num_customers, num_taxis, grid_size=20)
+    Simulation.generate_test_cases(
+        num_customers, num_taxis, grid_size=20
+    )
 
     # Simulation
     sim_rec = Simulation.read_from_file("experiment\Customers_50_Taxis_5.json")
@@ -199,22 +197,8 @@ if __name__ == "__main__":
     ax.set_title(f"Communication between the Initiators and the Participant")
     ax.legend()
 
-    plt.annotate(
-        "Recommender stops at: " + str(total_rounds_recommender),
-        (total_rounds_recommender, sim_rec.get_message_count_per_round()[-1]),
-        textcoords="offset points",
-        xytext=(-10, 10),
-        ha="right",
-        va="top",
-    )
-    plt.annotate(
-        "Broker stops at: " + str(total_rounds_broker),
-        (total_rounds_broker, sim_broker.get_message_count_per_round()[-1]),
-        textcoords="offset points",
-        xytext=(-10, 10),
-        ha="right",
-        va="top",
-    )
+    plt.annotate("Recommender stops at: " + str(total_rounds_recommender), (total_rounds_recommender, sim_rec.get_message_count_per_round()[-1]), textcoords="offset points", xytext=(-10, 10), ha="right", va="top")
+    plt.annotate("Broker stops at: " + str(total_rounds_broker), (total_rounds_broker, sim_broker.get_message_count_per_round()[-1]), textcoords="offset points", xytext=(-10, 10), ha="right", va="top")
 
     plt.show()
 
